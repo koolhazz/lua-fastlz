@@ -111,8 +111,14 @@ int lua_f_fastlz_decompress ( lua_State *L )
     }
 }
 
+static const struct luaL_reg fastlz[] = {
+	{"compress", 	lua_f_fastlz_compress},
+	{"decompress",  lua_f_fastlz_decompress},
+	{NULL, NULL} /* 必须以NULL结尾 */
+};
+
+
 LUALIB_API int luaopen_fastlz ( lua_State *L )
 {
-    lua_register ( L, "fastlz_compress", lua_f_fastlz_compress );
-    lua_register ( L, "fastlz_decompress", lua_f_fastlz_decompress );
+    luaL_register(L, "fz", fastlz);
 }
